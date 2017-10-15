@@ -121,10 +121,10 @@ pre {
 }
 
 .tagline {
-    margin-top: -15px;
-    line-height: 15px;
-    margin-left: 15px;
-    font-size: 80%;
+    margin-top: -32px;
+    line-height: 10px;
+    margin-left: 0px;
+    font-size: 148%;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     color: #fff;
 }
@@ -141,7 +141,7 @@ pre {
 
 .links a {
     font-size: 15px;
-    padding-left: 15px;
+    padding-left: 0px;
     font-family: sans-serif;
     letter-spacing: 2px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
