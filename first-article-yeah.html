@@ -1,78 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <title>First Article, Yeah</title>
-        <link rel="stylesheet" href="https://saxenauts.github.io/theme/css/main.css" />
-        <link href="https://saxenauts.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="i, utkarsh Atom Feed" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="i, utkarsh, ">
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <link rel="alternate"  href="https://saxenauts.github.io/feeds/all.atom.xml" type="application/atom+xml" title="i, utkarsh Full Atom Feed"/>
+
+        <title>First Article, Yeah // i, utkarsh // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://saxenauts.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://saxenauts.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="https://saxenauts.github.io/">i, utkarsh </a></h1>
-                <nav><ul>
-                    <li><a href="https://saxenauts.github.io/pages/AboutMe!.html">About</a></li>
-                    <li><a href="https://saxenauts.github.io/pages/Contact.html">Contact Bitches!</a></li>
-                    <li><a href="https://saxenauts.github.io/category/category-1.html">Category 1</a></li>
-                    <li class="active"><a href="https://saxenauts.github.io/category/category2.html">Category2</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="https://saxenauts.github.io/first-article-yeah.html" rel="bookmark"
-           title="Permalink to First Article, Yeah">First Article, Yeah</a></h1>
-    </header>
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background-image: url('/images/her.png')">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <h1 class="brand-main"><a href="https://saxenauts.github.io">i, utkarsh</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://twitter.com/saxenauts">
+                                        <i class="fa fa-twitter fa-3x"></i>
+                                    </a>
+                                    <a href="https://linkedin.com/saxenauts">
+                                        <i class="fa fa-linkedin-square fa-3x"></i>
+                                    </a>
+                                    <a href="https://medium.com/@saxenauts">
+                                        <i class="fa fa-medium fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>First Article, Yeah</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p>First Article, Ohhhh Yeah!</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; Utkarsh Saxena &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-12-13T04:04:00+05:30">
-                Published: Wed 13 December 2017
-        </abbr>
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://saxenauts.github.io/author/utkarsh-saxena.html">Utkarsh Saxena</a>
-        </address>
-<p>In <a href="https://saxenauts.github.io/category/category2.html">Category2</a>.</p>
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
 
-</footer><!-- /.post-info -->      <p>First Article, Ohhhh Yeah!</p>
-    </div><!-- /.entry-content -->
-
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="https://saxenauts.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
 
 </body>
 </html>
