@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="i, utkarsh, __________________">
+
+
+        <title>Generating Voice Part-1, A Survey of Deep Learning Based Speech Synthesis // i, utkarsh // __________________</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/theme/css/pure.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background-image: url('/images/nn_green.png')">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <h1 class="brand-main"><a href="">i, utkarsh</a></h1>
+                            <p class="tagline">__________________</p>
+                                <p class="links"><a href="/pages/about-me.html">About Me</a></p>
+                                <p class="links"><a href="/pages/projects.html">Projects</a></p>
+                                <p class="social">
+                                    <a href="https://twitter.com/saxenauts">
+                                        <i class="fa fa-twitter fa-3x"></i>
+                                    </a>
+                                    <a href="https://linkedin.com/saxenauts">
+                                        <i class="fa fa-linkedin-square fa-3x"></i>
+                                    </a>
+                                    <a href="https://medium.com/@saxenauts">
+                                        <i class="fa fa-medium fa-3x"></i>
+                                    </a>
+                                    <a href="mailto:saxenauts@gmail.com">
+                                        <i class="fa fa-envelope fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Generating Voice Part-1, A Survey of Deep Learning Based Speech Synthesis</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p><em>This is the introductory post on a multi part series of posts as I try to make
+a Speech Generation system</em></p>
+<p>Technically speaking, computer generated speech has existed for a while now.
+However, the quality of generated speech is still not human, and is not easy on
+ears. Even the most sophisticated production quality systems like Google Now,
+Apple’s Siri or Alexa from Amazon are far off from what a human generated speech
+would sound like. However, they are catching up. This post is an attempt to
+explain how recent advances in the field leverage Deep Learning techniques to
+generate natural sounding speech.</p>
+<p><iframe width="100%" height="150" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=true&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F282146215&show_artwork=true"></iframe></p>
+<h4><strong>Brief introduction to traditional Text-to-Speech Systems</strong></h4>
+<p>To understand why Deep Learning techniques are being used to generate speech
+today, it is important to understand how speech generation is traditionally
+done. There are two specific methods for Text-to-Speech(TTS) conversion.
+Parametric TTS and Concatenative TTS. It is also important to define two
+terms([as mentioned in char2wav][1] to judge the quality of generated speech.
+Intelligibilty and Naturalness. Intelligibility is the cleanliness of the</p>
+<p><strong>Concatenative TTS</strong>: As the name suggests, this technique relies on a huge
+database of high quality audio clips(or units), which are then combined together
+to form the speech. Although the generated speech is very clean and clear but it
+sounds emotionless, very robotic. This is because it is difficult to get the
+audio recordings of all possible words spoken in all possible combination of
+emotions, prosody, stress, etc. </p>
+<p><strong>Parametric TTS:</strong> Concatenative TTS is very restrictive, and data collection
+is very expensive. So instead of a brute force like method, a more stastical
+method was developed. A typical system will have two stages.</p>
+<ul>
+<li>First would be to first extract linguistic features after text processing. These
+features can be phonemes, duration, etc.</li>
+<li>Second would be to extract <em>vocoder features</em> that represent the corresponding
+speech signal. These features can be cepstra, spectrogram, fundamental
+frequency, etc. These features represent some inherent characteristic of speech
+as found in human speech analysis, which means that these features are hand
+engineered. For example, Cepstra is the approximation of the transfer function
+in the human speech.</li>
+</ul>
+<p>These hand-engineered parameters, along with the linguistic features are fed
+into a mathematical model called a Vocoder. Vocoder takes in these features, and
+does multiple complex transforms on these features to generate the audio
+waveform. While generating the waveform, the vocoder estimates features of
+speech like phase, prosody(rhythm and stress), intonation, etc.</p>
+<p>Now, a typical Vocoder looks like this. </p>
+<p>Parametrically synthesized speech is highly modular, and effective. If we can
+make approximations of the parameters that make speech, then we can train a
+model to generate all kinds of speech. And making such a system requires
+significantly less data than the Concatenative TTS.</p>
+<p>Theoritically, this should work, but practically there are many artefacts
+resulting in muffled speech, with buzzing sound ever present, giving it a
+robotic voice. I will not go into the details, but it boils down to this: We are
+hard-coding certain features at every stage of the pipeline, and hoping to
+generate speech. These features are designed by us humans, with our
+understanding of speech, but they are not necessarily the best features to do
+the job. And this is where Deep Learning comes in. </p>
+<h4><strong>Speech Synthesis with Deep Learning</strong></h4>
+<p>As <a href="http://on-demand.gputechconf.com/gtc/2017/presentation/s7544-andrew-gibiansky-efficient-inference-for-wavenet.pdf">Andrew Gibiansky
+says</a>,
+we are Deep Learning researchers, and when we see a problem with a ton of
+hand-engineered features that we don’t understand, we use neural networks and do
+architecture engineering. </p>
+<p>Deep Learning models have proved extraordinarily efficient at learning inherent
+features of data. These features aren’t really human readable, but they are
+computer readable, and they represent data much better than hand engineered
+ones. This is another way of saying that a Deep Learning model learns a function
+to map input X to output Y. Now working on this assumption, a natural sounding
+Text-to-Speech system should have input X as a string of text, and output Y as
+the audio waveform. It should not use any hand engineered features, and rather
+learn new high dimensional features to represent what makes speech, human. If we
+<em>show</em> a Deep Learning model a certain text, and <em>have it listen</em> to humans
+speaking it, then we can hope that this model will learn these features, and
+will learn the function to generate speech. This is what I am trying to achieve.</p>
+<p>The research in this field is very new, and I will build on these concepts. I
+will survey the research, and will give only a brief overview in this post. I
+will explain the details of these researches in later posts, as and when I pick
+them up to build upon, for my work.</p>
+<hr>
+<h4>Sample Level generation of Audio Waveform</h4>
+<p>My objective is to generate speech. Audio files are represented in computer by
+digitizing the waveform of the audio.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*MpAXSRgujRmzJdqccnGcCg.png"></p>
+<p>This is essentially a time-series of the audio samples. So instead of generating
+some latent parameter and then processing it to get the audio, it makes more
+sense to generate audio samples directly. The pioneering work in sample level
+audio generation with deep neural networks is WaveNet by DeepMind. </p>
+<p><strong>WaveNet: A Generative Model for Raw Audio</strong></p>
+<p>WaveNet is built using using stacks of convolutional layers. It takes digitized
+raw audio waveform as input, it then flows through these convolution layers and
+then outputs a waveform sample. Each waveform sample is conditioned on all
+previous samples.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*www46FWqJCc3OZQKP_QRoQ.gif">
+<span class="figcaption_hack">One waveform sample generated at a time. Source: DeepMind Blog</span></p>
+<p>This model in itself is not conditioned, which means that it does not generate
+any meaningful audio. If we train it on audio of humans speaking, it will
+generate sounds that will seem like humans are speaking words, but these words
+will be blabbering, and pauses and mumbling. WaveNet team conditioned this model
+by providing vocoder parameters as the other input along with the raw audio
+input. And the resulting Text-to-Speech system produced high quality voice. They
+were very clean(no noise), no buzziness, no muffled speech. However, this was
+very expensive. A typical WaveNet for  high quality speech uses 40 such
+convolution layers, along with other connections in between. And since one
+sample is generated at a time, so to generate 1 second of 16kHz audio, WaveNet
+has to generate 16000 samples. WaveNet team reported that it takes around 4
+minutes to generate 1 second of audio. This is not a feasible speech synthesis
+system, at least not with today’s technology and the resources that I can
+afford, so I need to look into other methods.</p>
+<p>But WaveNet proved that directly generating audio samples is significantly more
+effective than using a vocoder with hand engineered feature. The generated
+speech is more natural sounding. Also, WaveNet at the time of release was not
+very modular. Training a TTS system with WaveNet required conditioning with
+traditional vocoder parameters. These traditional vocoder parameters were
+generated using a pre-existing TTS system, they were still hand engineered, and
+required domain specific knowledge. A modular solution would be end to end,
+where I can provide (text, audio) pairs, and let the model train. Baidu extended
+WaveNet in this direction and I will explain it further in the post. But it’s
+important to note here that sample level generation with neural network replaces
+the need for hand engineering the features of the vocoder. We don’t need to
+estimate the phase, intonation, stress, and other aspects of the speech, we just
+need to generate samples by modeling a system on conditioned audio. Another
+research to generate audio was SampleRNN. </p>
+<p><strong>SampleRNN</strong></p>
+<p>SampleRNN is another approach to generate audio samples, but instead of
+convolutional layers as in WaveNet it uses hierarchy of Recurrent Layers. I will
+explain it in detail in my next post, but the idea is that there will be three
+levels of RNNs connected in a hierarchy. The top level will take large chunks of
+inputs, process it and pass it to the lower level; the lower level will take
+smaller chunks of inputs, and pass it on further. This goes on till the bottom
+most level in the hierarchy, where a single sample is generated. </p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*bJnjMZWfOxfc154MJIqPmQ.png">
+<span class="figcaption_hack">Three Tier SampleRNN</span></p>
+<p>Just like WaveNet, every generated sample is conditioned on all the previous
+samples in the audio. But it is computationally very fast compared to WaveNet. I
+believe, based on my calculation, that SampleRNN should be around 500 times
+faster than WaveNet. And, just like WaveNet, SampleRNN is unconditional audio
+generator. <a href="http://josesotelo.com/speechsynthesis/">Char2Wav</a> extends SampleRNN
+for speech synthesis by conditioning it on vocoder parameters. These vocoder
+parameters are generated from the text. Their results are not as good as WaveNet
+based TTS, but that is most likely because the team did not train the model on
+enough data. </p>
+<p>The audio samples generated by SampleRNN are as good as WaveNet and much faster,
+so I have decided to first try SampleRNN as a raw audio generator. A Neural
+Vocoder. And what features do I provide to condition SampleRNN? Baidu’s Deep
+Voice gives an answer to this question. </p>
+<p><strong>Baidu Deep Voice</strong></p>
+<p>Baidu research team used WaveNet as their Neural Vocoder. The features they
+provided to their WaveNet were F0(Fundamental Frequency), Duration,
+Grapheme2Phoneme. These were all predicted from the text. The most important
+result of Baidu’s research was that they deployed WaveNet on a CPU! And they
+made it 400x faster! They did this by writing the kernels for WaveNet in
+assembly! </p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*Yg9HOP3mcMJTQIiVsCsMlw.jpeg"></p>
+<p><br> </p>
+<p>The samples generated by their complete model are still robotic, this is because
+the feature extracting models are not good enough. It has to be so, because
+their audio synthesis model generates beautiful speech when given ground truth
+features. And this gives more reason to believe that sample level generation is
+the way ahead. </p>
+<p>Baidu showed that sample level neural vocoder generate the most natural sounding
+speech, but what features to give to these neural vocoders? How to process the
+text, and what features to give to these neural vocoders? </p>
+<p>Tacotron by Google Brain research, answers this question. And in doing so they
+generated the best sounding speech generation system, at the time this article
+is being written. </p>
+<p><strong>Tacotron: End-to-End Fully Text-to-Speech Synthesis</strong></p>
+<p>Where Tacotron shines is that it makes no assumption about what features shoud
+be passed to a vocoder, it makes no assumption about how the text should be
+processed. Tacotron admits that humans do not know everything, and so we let the
+model learn the appropirate features, and processing of the input text. Thus,
+Tacotron goes to the character level. </p>
+<p>I am building upon this architecture, and so I will write an article explaining
+how it works. But what it does it that it takes characters of the text as
+inputs, and passes them through different neural network submodules and
+generates the spectrogram of the audio. This looks more like a complete Deep
+Learning model for speech synthesis, and it does not require any features from
+the existing TTS systems unlike WaveNet, and it doesn’t need Phoneme pipeline
+like DeepVoice. It is self sufficient, and a true Text-to-Speech system. </p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*WaL0bIolNbaahxjiC2swKg.png"></p>
+<p>This spectrogram is a good enough representation of the audio. The spectrogram
+does not contain information about the phase, and so Griffin-Lim algorithm is
+used to reconstruct the audio by estimating the phase from the spectrogram. The
+algorithm however does not do an optimal job of learning the phase, and except
+for the Tacotron’s official samples, I am yet to see audio samples generated by
+any open source implementation that does not have phase distortion. With Phase
+Distortion, the speech sounds as if an omnipotent being is speaking in a sci-fi
+setting, so it’s not that bad. </p>
+<p>Anyhow, we learned from the successes of WaveNet and SampleRNN that directly
+generating the samples works much better than reconstruction with algorithms.
+Neural Vocoders have the ability to estimate phase, and other characteristics. </p>
+<p>This has been proved by the Baidu’s Deep Voice 2 research. They connect Tacotron
+with their WaveNet synthesis model. The input to their WaveNet is the linear
+scale spectrogram output of Tacotron. They haven’t provided any audio samples
+generated by this system but they do report that (Tacotron + WaveNet) is
+signficantly better than their Deep Voice 2 samples, but intuitively it does
+seem right to connect a robust system like Tacotron with a Neural Vocoder. And
+their Deep Voice 2 samples are good enough in themselves, so I wonder how good
+the Tacotron + WaveNet will sound. </p>
+<hr>
+<p>Now, to build my project I have used Tacotron. It has shown the best results out
+there, and it is more Deep Learning than WaveNet or Deep Voice, so personally, I
+can experiment more with it. Besides, it is an end to end model. This modularity
+enables experimentation with different datasets. </p>
+<p>I have used open source implementation of Tacotron for my first experiment and
+the results were not good, but that was because of the Dataset I was using.
+Right now I want to first build a neural vocoder and experiment with Tacotron.
+With the resources that I can afford, I have decided to go with SampleRNN first.
+Compared to WaveNet, it is much easier to build and experiment with. </p>
+<p>In my next post, I will explain the SampleRNN architecture. I am currently in
+the process of building conditional SampleRNN model, and hopefully by the time I
+write my next post in this series, I will have generated some audio samples from
+it. Stay Tuned! </p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; Utkarsh Saxena &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

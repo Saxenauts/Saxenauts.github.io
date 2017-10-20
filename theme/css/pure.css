@@ -6,7 +6,7 @@
 
 a {
     text-decoration: none;
-    color: rgb(4, 123, 102);
+    color: rgb(142, 142, 214);
 }
 a:hover,
 a:focus {
@@ -35,7 +35,7 @@ pre {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 23%;
+    width: 25%;
     margin-left: -25%;
 }
 
@@ -54,7 +54,7 @@ pre {
 
 .cover-img {
     position: absolute;
-    width: 110%;
+    width: 100%;
     height: 100%;
     top: 0;
     left: 0;
@@ -112,18 +112,20 @@ pre {
 }
 
 .brand-main a {
+    text-transform: uppercase;
     text-decoration: none;
-    margin-left: 0px;
-    font-size: 30px;
+    margin-left: 15px;
+    font-size: 25px;
     color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     font-family: "freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
 }
 
 .tagline {
-    margin-top: -18px;
-    line-height: 1px;
-    margin-left: 0px;
+    margin-top: -15px;
+    line-height: 15px;
+    margin-left: 15px;
     font-size: 80%;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     color: #fff;
@@ -134,14 +136,14 @@ pre {
 }
 .social a {
     text-decoration: none;
-    margin-left: 14px;
+    margin-left: 15px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     color: #fff;
 }
 
 .links a {
     font-size: 15px;
-    padding-left: 0px;
+    padding-left: 15px;
     font-family: sans-serif;
     letter-spacing: 2px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
