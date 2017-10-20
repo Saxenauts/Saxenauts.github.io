@@ -6,7 +6,7 @@
 
 a {
     text-decoration: none;
-    color: rgb(142, 142, 214);
+    color: rgb(3, 134, 130);
 }
 a:hover,
 a:focus {
@@ -112,20 +112,18 @@ pre {
 }
 
 .brand-main a {
-    text-transform: uppercase;
     text-decoration: none;
-    margin-left: 15px;
+    margin-left: 0px;
     font-size: 25px;
     color: #fff;
-    border-bottom: 1px solid rgba(255,255,255,0.3);
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     font-family: "freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
 }
 
 .tagline {
     margin-top: -15px;
-    line-height: 15px;
-    margin-left: 15px;
+    line-height: 2px;
+    margin-left: 0px;
     font-size: 80%;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     color: #fff;
@@ -143,7 +141,7 @@ pre {
 
 .links a {
     font-size: 15px;
-    padding-left: 15px;
+    padding-left: 0px;
     font-family: sans-serif;
     letter-spacing: 2px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
