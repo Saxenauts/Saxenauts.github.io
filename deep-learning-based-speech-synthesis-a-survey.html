@@ -63,10 +63,10 @@
                         </p>
                 </header>
             </section>
-            <p><em>This is the introductory post on a multi part series, as I try to synthesize
+            <p><em>This is the introductory post on a multi-part series, as I try to synthesize
 natural sounding human speech.</em></p>
 <p>Computer generated speech has existed for a while now. However, the quality of
-generated speech is still not human, and is not easy on ears. Although, they are
+generated speech is still not human, and is also not easy on ears. Although, they are
 catching up but even the production quality systems like Google Now, Apple’s
 Siri or Amazon Alexa are far off from what a human generated speech would sound
 like.  This post is an attempt to explain how recent advances in the Speech
@@ -77,23 +77,22 @@ today, it is important to understand how speech generation is traditionally
 done. There are two specific methods for Text-to-Speech(TTS) conversion.
 Parametric TTS and Concatenative TTS. It is also important to define two terms
 as <a href="http://josesotelo.com/speechsynthesis/">mentioned in char2wav</a> to judge the
-quality of generated speech. <strong>Intelligibilty and Naturalness</strong>. Intelligibility
+quality of generated speech. <strong>Intelligibility and Naturalness</strong>. Intelligibility
 is the quality of the audio generated. Is it clean, Is it listenable? And
 Naturalness is the quality of the speech generated. Does it sound emotionless?
 Does the speech has proper timing structure, and pronounciation? </p>
-<p><strong>Concatenative TTS</strong>: As the name suggests, this technique relies on high
-quality audio clips(or units) recordings, which are then combined together to
+<p><strong>Concatenative TTS</strong>: As the name suggests, this technique relies on high-quality audio clips(or units) recordings, which are then combined together to
 form the speech. Although the generated speech audio is very clean and clear but
 it sounds emotionless. Intelligible, but not Natural. This is because it is
 difficult to get the audio recordings of all possible words spoken in all
 possible combination of emotions, prosody, stress, etc. Naturally, these systems
-require huge databases, and hard coding the combination to form these words.
+require huge databases, and hard-coding the combination to form these words.
 Developing a robust system takes seven to eight months.</p>
 <p><iframe width="100%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F347906992&show_artwork=true"></iframe></p>
 <p><strong>Parametric TTS:</strong> Concatenative TTS is very restrictive, because of large data
 requirements and development time. So instead of a brute force like method, a
 more stastical method was developed. This method generates speech by combining
-parameters like fundamental frequency, magintude spectrum etc. and processing
+parameters like fundamental frequency, magnitude spectrum etc. and processing
 them to generate speech. A Parametric TTS system will have two stages.</p>
 <ul>
 <li>First would be to first extract linguistic features after text processing. These
@@ -111,10 +110,10 @@ and does multiple complex transforms on these features to generate the audio
 waveform. While generating the waveform, the vocoder estimates parameters of
 speech like phase, prosody(rhythm and stress), intonation, etc.</p>
 <p>Parametrically synthesized speech is highly modular, and feasible. If we can
-make approximations of the parameters that make speech, then we can train a
+make approximations of the parameters that make the speech, then we can train a
 model to generate all kinds of speech. And making such a system requires
 significantly less data and hard work than the Concatenative TTS.</p>
-<p>Theoritically this should work, but practically there are many artefacts
+<p>Theoretically, this should work, but practically there are many artifacts
 resulting in muffled speech, with buzzing sound ever present, noisy audio. The
 generated speech is neither intelligible, nor natural. I will not go into the
 details, but with my understanding it boils down to this:</p>
@@ -130,7 +129,7 @@ hand-engineered features that we don’t understand, we use neural networks and 
 architecture engineering. </p>
 <p>Deep Learning models have proved extraordinarily efficient at learning inherent
 features of data. These features aren’t really human readable, but they are
-computer readable, and they represent data much better for a model. This is
+computer-readable, and they represent data much better for a model. This is
 another way of saying that a Deep Learning model learns a function to map input
 X to output Y.</p>
 <p>Now working on this assumption, a natural sounding Text-to-Speech system should
@@ -144,8 +143,8 @@ will explain the details of these researches in later posts, as and when I pick
 them up to build upon, for my work.</p>
 <hr>
 <h3>Sample Level Generation of Audio Waveform</h3>
-<p>My objective is to generate speech. Audio files are represented in computer by
-digitizing audio waveform.</p>
+<p>My objective is to generate speech. Audio files are represented in a computer by
+digitizing the audio waveform.</p>
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*MpAXSRgujRmzJdqccnGcCg.png"></p>
 <p>This is essentially a time-series of the audio samples. So instead of generating
 some latent parameter and then processing it to get the audio, it makes more
@@ -157,7 +156,7 @@ conditioned on all the previous samples generated in the audio. This sample is
 then used with previous samples to generate the next sample. This is called
 autoregressive generation.</p>
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*EIuc5FZCGtUbbZwVPsUtCw.jpeg"></p>
-<p>WaveNet is built using using stacks of convolutional layers with residual, and
+<p>WaveNet is built using stacks of convolutional layers with residual, and
 skip connections in between. It takes digitized raw audio waveform as input,
 which then flows through these convolution layers and outputs a waveform sample.</p>
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*www46FWqJCc3OZQKP_QRoQ.gif">
@@ -170,17 +169,17 @@ blabbering, and pauses and mumbling.</p>
 <p><iframe width="100%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F347907863&show_artwork=true"></iframe></p>
 <p>WaveNet team conditioned this model by providing vocoder parameters from a
 pre-existing TTS system as the other input along with the raw audio input. And
-the resulting Text-to-Speech system produced high quality voice. They were very
+the resulting Text-to-Speech system produced high-quality voice. They were very
 clean(no noise), no buzziness, no muffled speech.</p>
 <p><iframe width="100%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F347907699&show_artwork=true"></iframe></p>
 <p>However, this computation was very expensive. A typical WaveNet for  high
 quality speech uses 40 such convolution layers, along with other connections in
 between. And since one sample is generated at a time, so generating 1 second of
-16kHz audio requires processing 16000 samples. WaveNet team reported that
+16kHz audio requires processing 16000 samples. The WaveNet team reported that
 it takes around 4 minutes to generate 1 second of audio. This is not a feasible
 speech synthesis system, at least not with today’s technology, and the
-resources that I can afford. So I need to look into other methods.
-Also, WaveNet at the time of release was not modular. It was conditioned on features generated
+resources that I can afford. So I need to look into other methods. Baidu DeepVoice made WaveNet 400 times faster by implementing their kernels, and WaveNet team recently claimed to have made it 1000 times faster but they are yet to mention how.</p>
+<p>Also, WaveNet at the time of release was not modular. It was conditioned on features generated
 from pre-existing TTS systems that requires hardcoded features. A modular
 solution would be end to end, where I can provide (text,audio) pairs, and let
 the model train. Baidu extended WaveNet in this direction.</p>
@@ -190,12 +189,12 @@ significantly higher than using a vocoder with hand engineered features. </p>
 the speech, we just need to find the best architecture that will generate the
 appropriate samples. Another research to generate audio was SampleRNN. </p>
 <p><strong>SampleRNN</strong></p>
-<p>SampleRNN is another approach to generate audio samples and it uses hierarchy of
+<p>SampleRNN is another approach to generate audio samples and it uses a hierarchy of
 Recurrent Layers that have different clock-rates to process the audio. I will
 explain it in detail in my next post, but the idea is that multiple RNNs are
 connected in a hierarchy. The top level will take large chunks of inputs,
 process it and pass it to the lower level; the lower level will take smaller
-chunks of inputs, and pass it on further. This goes on upto the bottom most
+chunks of inputs, and pass it on further. This goes on up to the bottom-most
 level in the hierarchy, where a single sample is generated. </p>
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*bJnjMZWfOxfc154MJIqPmQ.png">
 <div style="text-align:center" markdown="1"><span style = "text-align:center" markdown="1">Three Tier SampleRNN</span></div></p>
@@ -219,10 +218,10 @@ Google Brain research, answers this question. And in doing so they generated the
 most natural sounding speech generation system at the time this article is being
 written. </p>
 <p><strong>Tacotron: End-to-End Fully Text-to-Speech Synthesis</strong></p>
-<p>Where Tacotron shines is that it makes no assumption about what features shoud
+<p>Where Tacotron shines is that it makes no assumption about what features should
 be passed to a vocoder, it makes no assumption about how the text should be
 processed. Tacotron team knows that humans do not know everything, and so they
-let the model learn the appropirate features adn processing. Thus, Tacotron goes
+let the model learn the appropriate features ann processing. Thus, Tacotron goes
 to the character level.</p>
 <p>I am building upon this architecture, and so I will write an article explaining
 how it works. But what it does is that it takes characters of the text as
@@ -231,10 +230,10 @@ generates the spectrogram of the audio. This looks more like a complete Deep
 Learning model for speech synthesis, and it does not require any features from
 the existing TTS systems unlike WaveNet. </p>
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*WaL0bIolNbaahxjiC2swKg.png"></p>
-<p>Spectrogram is a good representation of the speech but it does not contain
+<p>A Spectrogram is a good representation of the speech but it does not contain
 information about the phase, and so Griffin-Lim algorithm is used to reconstruct
-the audio by estimating the phase from the spectrogram. This algorithm however
-does not do an optimal job of learning the phase, and except for the Tacotron’s
+the audio by estimating the phase from the spectrogram. This algorithm, however, 
+does a pretty shabby job of learning the phase, and except for the Tacotron’s
 official samples, I am yet to see audio samples generated by any open source
 implementation that does not have phase distortion. With Phase Distortion, the
 speech sounds as if an omnipotent being is speaking in a sci-fi setting, so it’s
@@ -250,13 +249,13 @@ characteristics. </p>
 with their WaveNet synthesis model. The input to their WaveNet is the linear
 scale spectrogram output of Tacotron. They haven’t provided any audio samples
 generated by this system but they do report that (Tacotron + WaveNet) is
-signficantly better than their Deep Voice 2 samples. Intuitively, it does seem
+significantly better than their Deep Voice 2 samples. Intuitively, it does seem
 right to connect a system like Tacotron with a Neural Vocoder. And their Deep
 Voice 2 samples are good enough in themselves, so I wonder how good the Tacotron
 + WaveNet will sound. </p>
 <hr>
-<p>Now, to build my project I have used Tacotron as the processing of the . It has
-shown the best results out there, and it is more Deep Learning than WaveNet or
+<p>Now, to build my project I have used Tacotron to generate features. It has
+shown the best results out there, and it is more Deep Learning-y than WaveNet or
 Deep Voice, so personally, I can experiment more with it. Besides, it is an end
 to end model. This modularity enables experimentation with different datasets
 and different speaking styles. </p>
@@ -270,7 +269,7 @@ algorithm is not perfect, so I am now working on building a neural vocoder. </p>
 <p>With the resources that I can afford, I have decided to go with SampleRNN first.
 Compared to WaveNet, it is much easier to build and experiment with. </p>
 <p>In my next post, I will explain the SampleRNN architecture. I am currently in
-the process of building conditional SampleRNN model, and hopefully by the time I
+the process of building a conditional SampleRNN model, and hopefully, by the time I
 write my next post in this series, I will have generated some audio samples from
 it. Stay Tuned! </p>
             <a href="#" class="go-top">Go Top</a>
