@@ -175,16 +175,16 @@ clean(no noise), no buzziness, no muffled speech.</p>
 <p><iframe width="100%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F347907699&show_artwork=true"></iframe></p>
 <p>However, this computation was very expensive. A typical WaveNet for  high
 quality speech uses 40 such convolution layers, along with other connections in
-between. And since one sample is generated at a time, so to generate 1 second of
-16kHz audio, WaveNet has to generate 16000 samples. WaveNet team reported that
+between. And since one sample is generated at a time, so generating 1 second of
+16kHz audio requires processing 16000 samples. WaveNet team reported that
 it takes around 4 minutes to generate 1 second of audio. This is not a feasible
-speech synthesis system, at least not with today’s technology,  and the
-resources that I can afford. So I need to look into other methods.Also, WaveNet
-at the time of release was not modular. It was conditioned on features generated
+speech synthesis system, at least not with today’s technology, and the
+resources that I can afford. So I need to look into other methods.
+Also, WaveNet at the time of release was not modular. It was conditioned on features generated
 from pre-existing TTS systems that requires hardcoded features. A modular
-solution would be end to end, where I can provide (text, audio) pairs, and let
+solution would be end to end, where I can provide (text,audio) pairs, and let
 the model train. Baidu extended WaveNet in this direction.</p>
-<p>But WaveNet proved the quality of directly generating audio samples is
+<p>But WaveNet proved that the quality of directly generating audio samples is
 significantly higher than using a vocoder with hand engineered features. </p>
 <p>We don’t need to estimate the phase, intonation, stress, and other aspects of
 the speech, we just need to find the best architecture that will generate the
