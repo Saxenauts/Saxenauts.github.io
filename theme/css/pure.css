@@ -112,8 +112,9 @@ pre {
 }
 
 .brand-main a {
+
     text-decoration: none;
-    margin-left: 0px;
+    margin-left: 15px;
     font-size: 25px;
     color: #fff;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -121,9 +122,9 @@ pre {
 }
 
 .tagline {
-    margin-top: -15px;
-    line-height: 2px;
-    margin-left: 0px;
+    margin-top: -26px;
+    line-height: 15px;
+    margin-left: 15px;
     font-size: 80%;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     color: #fff;
@@ -141,7 +142,7 @@ pre {
 
 .links a {
     font-size: 15px;
-    padding-left: 0px;
+    padding-left: 15px;
     font-family: sans-serif;
     letter-spacing: 2px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -185,8 +186,8 @@ pre {
 .post-category {
     margin: 0 0.1em;
     padding: 0.2em 0.6em;
-    color: #fff;
-    background: #999;
+    color: rgb(3, 134, 130);
+    background: #ffff;
     font-size: 90%;
 }
 

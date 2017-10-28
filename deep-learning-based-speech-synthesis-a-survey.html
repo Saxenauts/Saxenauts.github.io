@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="i, utkarsh, __________________">
+    <meta name="description" content="i, utkarsh">
 
 
-        <title>Deep Learning Based Speech Synthesis - A Survey // i, utkarsh</title>
+        <title>Deep Learning Based Speech Synthesis - A Survey</title>
 
     <link href="/images/favicon.ico" rel="icon">
 
     <link rel="stylesheet" href="https://saxenauts.github.io/theme/css/pure-min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://saxenauts.github.io/theme/css/pure.css">
     <link rel="stylesheet" href="https://saxenauts.github.io/theme/css/pygments.css">
 
@@ -39,7 +39,7 @@
                                     <a href="https://twitter.com/saxenauts">
                                         <i class="fa fa-twitter fa-2x"></i>
                                     </a>
-                                    <a href="https://linkedin.com/saxenauts">
+                                    <a href="https://linkedin.com/in/saxenauts">
                                         <i class="fa fa-linkedin-square fa-2x"></i>
                                     </a>
                                     <a href="https://medium.com/@saxenauts">
@@ -60,6 +60,7 @@
                 <header class="post-header">
                     <h1>Deep Learning Based Speech Synthesis - A Survey</h1>
                         <p class="post-meta">
+                            under                                 <a class="post-category" href="https://saxenauts.github.io/tag/speech.html">speech</a>
                         </p>
                 </header>
             </section>
@@ -80,7 +81,7 @@ as <a href="http://josesotelo.com/speechsynthesis/">mentioned in char2wav</a> to
 quality of generated speech. <strong>Intelligibility and Naturalness</strong>. Intelligibility
 is the quality of the audio generated. Is it clean, Is it listenable? And
 Naturalness is the quality of the speech generated. Does it sound emotionless?
-Does the speech has proper timing structure, and pronounciation? </p>
+Does the speech has proper timing structure, and pronounciation?</p>
 <p><strong>Concatenative TTS</strong>: As the name suggests, this technique relies on high-quality audio clips(or units) recordings, which are then combined together to
 form the speech. Although the generated speech audio is very clean and clear but
 it sounds emotionless. Intelligible, but not Natural. This is because it is
@@ -120,13 +121,13 @@ details, but with my understanding it boils down to this:</p>
 <p>We are hard-coding certain features at every stage of the pipeline, and hoping
 to generate speech. These features are designed by us humans, with our
 understanding of speech, but they are not necessarily the best features to do
-the job. And this is where Deep Learning comes in. </p>
+the job. And this is where Deep Learning comes in.</p>
 <h3><strong>Speech Synthesis with Deep Learning</strong></h3>
 <p>As <a href="http://on-demand.gputechconf.com/gtc/2017/presentation/s7544-andrew-gibiansky-efficient-inference-for-wavenet.pdf">Andrew Gibiansky
 says</a>,
 we are Deep Learning researchers, and when we see a problem with a ton of
 hand-engineered features that we don’t understand, we use neural networks and do
-architecture engineering. </p>
+architecture engineering.</p>
 <p>Deep Learning models have proved extraordinarily efficient at learning inherent
 features of data. These features aren’t really human readable, but they are
 computer-readable, and they represent data much better for a model. This is
@@ -149,7 +150,7 @@ digitizing the audio waveform.</p>
 <p>This is essentially a time-series of the audio samples. So instead of generating
 some latent parameter and then processing it to get the audio, it makes more
 sense to generate audio samples directly. The pioneering work in sample level
-audio generation with deep neural networks is WaveNet by DeepMind. </p>
+audio generation with deep neural networks is WaveNet by DeepMind.</p>
 <p><strong>WaveNet: A Generative Model for Raw Audio</strong></p>
 <p>WaveNet generates the individual sample for the audio and each sample is
 conditioned on all the previous samples generated in the audio. This sample is
@@ -184,10 +185,10 @@ from pre-existing TTS systems that requires hardcoded features. A modular
 solution would be end to end, where I can provide (text,audio) pairs, and let
 the model train. Baidu extended WaveNet in this direction.</p>
 <p>But WaveNet proved that the quality of directly generating audio samples is
-significantly higher than using a vocoder with hand engineered features. </p>
+significantly higher than using a vocoder with hand engineered features.</p>
 <p>We don’t need to estimate the phase, intonation, stress, and other aspects of
 the speech, we just need to find the best architecture that will generate the
-appropriate samples. Another research to generate audio was SampleRNN. </p>
+appropriate samples. Another research to generate audio was SampleRNN.</p>
 <p><strong>SampleRNN</strong></p>
 <p>SampleRNN is another approach to generate audio samples and it uses a hierarchy of
 Recurrent Layers that have different clock-rates to process the audio. I will
@@ -195,11 +196,11 @@ explain it in detail in my next post, but the idea is that multiple RNNs are
 connected in a hierarchy. The top level will take large chunks of inputs,
 process it and pass it to the lower level; the lower level will take smaller
 chunks of inputs, and pass it on further. This goes on up to the bottom-most
-level in the hierarchy, where a single sample is generated. </p>
+level in the hierarchy, where a single sample is generated.</p>
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*bJnjMZWfOxfc154MJIqPmQ.png">
 <div style="text-align:center" markdown="1"><span style = "text-align:center" markdown="1">Three Tier SampleRNN</span></div></p>
 <p>Just like WaveNet, this too is an autoregressive generative model. But it is
-computationally very fast compared to WaveNet. </p>
+computationally very fast compared to WaveNet.</p>
 <p>Based on my calculation I believe that SampleRNN must be about 500 times faster
 than WaveNet. And, just like WaveNet, SampleRNN is an unconditional audio
 generator.</p>
@@ -207,7 +208,7 @@ generator.</p>
 <p><a href="http://josesotelo.com/speechsynthesis/">Char2Wav</a> extends SampleRNN for speech
 synthesis by conditioning it on vocoder parameters. These vocoder parameters are
 generated from the text. Their results are not as good as WaveNet based TTS, but
-that is because the team did not train the model on enough data. </p>
+that is because the team did not train the model on enough data.</p>
 <p>Not much experimentation is done on this model, but the quality of sound
 generated is quite good. Here is a model generating Mozart.</p>
 <p><iframe width="100%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F319280694&show_artwork=true&in=utkarsh-saxena-751714225%2Fsets%2Fintro-sutrue"></iframe></p>
@@ -216,7 +217,7 @@ so I have decided to first try SampleRNN as a raw audio generator. A Neural
 Vocoder. And what features do I provide to condition SampleRNN? Tacotron by
 Google Brain research, answers this question. And in doing so they generated the
 most natural sounding speech generation system at the time this article is being
-written. </p>
+written.</p>
 <p><strong>Tacotron: End-to-End Fully Text-to-Speech Synthesis</strong></p>
 <p>Where Tacotron shines is that it makes no assumption about what features should
 be passed to a vocoder, it makes no assumption about how the text should be
@@ -228,23 +229,23 @@ how it works. But what it does is that it takes characters of the text as
 inputs, and passes them through different neural network submodules and
 generates the spectrogram of the audio. This looks more like a complete Deep
 Learning model for speech synthesis, and it does not require any features from
-the existing TTS systems unlike WaveNet. </p>
+the existing TTS systems unlike WaveNet.</p>
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*WaL0bIolNbaahxjiC2swKg.png"></p>
 <p>A Spectrogram is a good representation of the speech but it does not contain
 information about the phase, and so Griffin-Lim algorithm is used to reconstruct
-the audio by estimating the phase from the spectrogram. This algorithm, however, 
+the audio by estimating the phase from the spectrogram. This algorithm, however,
 does a pretty shabby job of learning the phase, and except for the Tacotron’s
 official samples, I am yet to see audio samples generated by any open source
 implementation that does not have phase distortion. With Phase Distortion, the
 speech sounds as if an omnipotent being is speaking in a sci-fi setting, so it’s
-not that bad really. </p>
+not that bad really.</p>
 <p><iframe width="100%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F347910153&show_artwork=true"></iframe></p>
 <p>Notice how natural the flow of speech sounds even if the audio quality is not
-the best. </p>
+the best.</p>
 <p>Anyhow, I learned from the successes of WaveNet and SampleRNN that directly
 generating the samples works much better than reconstruction with traditional
 algorithms. Neural Vocoders have the ability to estimate phase, and other
-characteristics. </p>
+characteristics.</p>
 <p>This has been proved by the Baidu’s Deep Voice 2 research. They connect Tacotron
 with their WaveNet synthesis model. The input to their WaveNet is the linear
 scale spectrogram output of Tacotron. They haven’t provided any audio samples
@@ -252,26 +253,26 @@ generated by this system but they do report that (Tacotron + WaveNet) is
 significantly better than their Deep Voice 2 samples. Intuitively, it does seem
 right to connect a system like Tacotron with a Neural Vocoder. And their Deep
 Voice 2 samples are good enough in themselves, so I wonder how good the Tacotron
-+ WaveNet will sound. </p>
++ WaveNet will sound.</p>
 <hr>
 <p>Now, to build my project I have used Tacotron to generate features. It has
 shown the best results out there, and it is more Deep Learning-y than WaveNet or
 Deep Voice, so personally, I can experiment more with it. Besides, it is an end
 to end model. This modularity enables experimentation with different datasets
-and different speaking styles. </p>
+and different speaking styles.</p>
 <p>I have used open source implementation of Tacotron for my first experiment and
 the results are not presentable, but that is most certainly because of the
 dataset I have used. It’s not sufficient or clean. Here is an example of what I
 have generated. The input text is similar to the Corpus I used for training.</p>
 <p><iframe width="100%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?visual=false&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F347909717&show_artwork=true"></iframe></p>
 <p>You can notice the distorted phase. This is arising because the phase estimation
-algorithm is not perfect, so I am now working on building a neural vocoder. </p>
+algorithm is not perfect, so I am now working on building a neural vocoder.</p>
 <p>With the resources that I can afford, I have decided to go with SampleRNN first.
-Compared to WaveNet, it is much easier to build and experiment with. </p>
+Compared to WaveNet, it is much easier to build and experiment with.</p>
 <p>In my next post, I will explain the SampleRNN architecture. I am currently in
 the process of building a conditional SampleRNN model, and hopefully, by the time I
 write my next post in this series, I will have generated some audio samples from
-it. Stay Tuned! </p>
+it. Stay Tuned!</p>
             <a href="#" class="go-top">Go Top</a>
     <div class="comments">
         <div id="disqus_thread"></div>
